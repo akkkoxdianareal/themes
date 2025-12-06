@@ -1,0 +1,936 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+/*
+Note: Very good pixel-perfect font like Arial, but feels a little too hand-written for header/button text.
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+*/
+
+@property --fdb-link-blue {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #477DEB;
+}
+@property --fdb-text-black {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #333333;
+}
+@property --fdb-text-subtle {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #808080;
+}
+@property --fdb-indent {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #FAFAFA;
+}
+@property --fdb-stroke-subtle {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #d9d9d9;
+}
+@property --fdb-stroke-faint {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #F2F2F2;
+}
+@property --fdb-stroke-control {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #B3B3B3;
+}
+
+/* Override this to set the tab color situationally */
+@property --fdb-fill-tab {
+    syntax: "<color>";
+    inherits: true;
+    initial-value: #ffffff;
+}
+/* Override these for mobile displays */
+@property --fdb-button-text-size {
+    syntax: "<length>";
+    inherits: true;
+    initial-value: 12px;
+}
+@property --fdb-button-height {
+    syntax: "<length>";
+    inherits: true;
+    initial-value: 23px;
+}
+@property --fdb-border-radius {
+    syntax: "<length>";
+    inherits: true;
+    initial-value: 5px;
+}
+@property --fdb-captcha-pad {
+    syntax: "<length>";
+    inherits: true;
+    initial-value: 5px;
+}
+/* Width of discover panels */
+@property --fdb-discover-width {
+    syntax: "<length>";
+    inherits: true;
+    initial-value: 300px;
+}
+@property --fdb-pad-thick {
+    syntax: "<length>";
+    inherits: true;
+    initial-value: 20px;
+}
+@property --fdb-pad-thin {
+    syntax: "<length>";
+    inherits: true;
+    initial-value: 10px;
+}
+
+.fdb-text-subtle {
+    color: var(--fdb-text-subtle)
+}
+
+html {
+    height: 100%;
+}
+
+a, .fdb-a {
+    color: var(--fdb-link-blue);
+    text-decoration: none;
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+html {
+    font-size: 14px;
+    font-family: 'Roboto Flex';
+}
+
+body {
+    margin: 0;
+    height: 100%;
+    background: linear-gradient(180deg,
+        rgba(142,193,218,1) 0%,
+        rgba(202,227,240,1) 33%,
+        rgba(192,222,237,1) 37%
+    );
+    background-color: rgb(192,222,237);
+    color: var(--fdb-text-black);
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+}
+
+.fdb-mobile {
+    display: none;
+}
+
+@media screen and (max-width: 1000px) {
+    html {
+        --fdb-pad-thick: 10px;
+        --fdb-pad-thin: 5px;
+    }
+    .fdb-desktop {
+        display: none;
+    }
+    .fdb-mobile {
+        display: initial;
+    }
+    /* I had to include a parent class to gain enough specificity to override `display` */
+    .fdb-header .fdb-header-links {
+        box-sizing: border-box;
+        position: absolute;
+        top: 3rem;
+        left: 0;
+        width: 100%;
+        background-color: #101010;
+    
+        display: none; /* This will be overidden by JS to reveal it */
+        flex-direction: column;
+        padding: 10px 20px 20px 20px;
+    
+        a {
+            padding: 10px 0;
+        }
+    }
+    .fdb-index-stats {
+        text-align: center;
+        flex-basis: min-content;
+    }
+    body .fdb-threads-pad {
+        padding: 0;
+    }
+}
+
+.fdb-header {
+    display: flex;
+    align-items: stretch;
+    min-height: 3rem;
+    gap: 20px;
+    padding: 0 20px;
+    text-wrap: nowrap;
+    overflow-x: auto;
+    
+    background: linear-gradient(0deg, #101010, #3d3d3d);
+    color: #bbb;
+
+    a {
+        align-content: center;
+        color: inherit;
+        text-decoration: inherit;
+        /* copied from .noselect */
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    .fdb-brand {
+        font-size: 1.5rem;
+        font-weight: normal;
+        text-decoration: none;
+        color: white;
+    }
+}
+
+.fdb-header-links {
+    display: flex;
+    gap: 20px;
+    align-items: stretch;
+}
+
+.fdb-hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.5rem;
+    align-content: stretch;
+    
+    div {
+        height: 2px;
+        background-color: #bbb;
+    }
+}
+
+.fdb-threads-pad {
+    padding: 0 20px;
+}
+
+.fdb-thread-preview {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border: 1px solid var(--fdb-stroke-subtle);
+
+    .fdb-thread-preview-header {
+        display: flex;
+        padding: 10px;
+        gap: 10px;
+        background: #444;
+
+        span {
+            color: white;
+            font-weight: bold;
+        }
+
+        .fdb-text-subtle {
+            color: #aaa
+        }
+
+        &:hover {
+            background-color: #555;
+        }
+    }
+
+    .fdb-thread-preview-header.fdb-text-subtle {
+        background: white;
+
+        &:hover {
+            background-color: var(--fdb-indent);
+        }
+    }
+}
+
+.fdb-avatar-frame {
+    position: relative;
+    display: flex;
+    box-sizing: border-box;
+    border-width: 1px 1px 2px 1px;
+    border-style: solid;
+    border-color: var(--fdb-stroke-control);
+
+    img {
+        box-sizing: border-box;
+        border-width: 1px;
+        border-style: solid;
+        border-color: transparent;
+    }
+}
+
+.fdb-avatar-blank {
+    position: relative;
+    border: 3px dashed #CCC;
+    box-sizing: border-box;
+}
+
+.fdb-center-content {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+/* The boxes that stack vertically on the index page */
+.fdb-index-box {
+    border: 1px solid var(--fdb-stroke-subtle);
+    background: white;
+    padding: 10px;
+
+    & + & {
+        border-top: none;
+    }
+}
+
+.fdb-artstat-sheen {
+    z-index: 1;
+    border: none;
+    box-shadow:
+        gold 0 0 1rem;
+}
+
+.fdb-discover {
+    width: var(--fdb-discover-width);
+    flex-shrink: 0;
+    
+    box-sizing: border-box;
+    background: rgb(255 255 255 / 25%);
+    border-image: linear-gradient(0deg, rgb(255 255 255 / 25%), white, rgb(255 255 255 / 25%)) 1;
+    border-radius: 5px;
+    border-width: 1px;
+    border-style: solid;
+    
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 10px;
+
+    * {
+        text-shadow: rgb(255 255 255 / 50%) 0 2px 4px, rgb(255 255 255 / 80%) 0 1px 0;
+    }
+
+    .fdb-discover-account {
+        display: flex;
+        gap: 10px;
+
+        text-decoration: none;
+        
+        img {
+            box-sizing: border-box;
+            border-image: linear-gradient(white 50%, rgb(0 0 0 / 25%)) 1;
+            border-width: 1px;
+            border-style: solid;
+            box-shadow: #0000004f 0px 1px 2px, #00000026 0px 1px 3px 1px;
+        }
+
+        .fdb-avatar-blank {
+            border-color: white;
+        }
+    }
+}
+
+@media screen and (width < 1500px) {
+    .fdb-discover {
+        display: none;
+    }
+}
+
+/* Fit more gallery tiles on larger and larger screen widths */
+.fdb-gallery-grid {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    border: 0 solid black;
+    border-width: 1px 0 0 1px;
+
+    > a {
+        box-sizing: border-box;
+        border: 0 solid black;
+        border-width: 0 1px 1px 0;
+        > img {
+            width: 100%;
+            height: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+        }
+    }
+}
+@media (min-width: 0px) {
+    .fdb-gallery-grid > a {
+        width: 50%;
+    }
+}
+@media (min-width: 600px) {
+    .fdb-gallery-grid > a {
+        width: 25%;
+    }
+}
+@media (min-width: 1000px) {
+    .fdb-gallery-grid > a {
+        width: calc(100%/6);
+    }
+}
+
+
+.fdb-main-container {
+    min-width: 0;
+    background: white;
+    flex-grow: 1;
+    border-radius: var(--fdb-border-radius) var(--fdb-border-radius) 0 0;
+    overflow-x: hidden;
+
+    display: flex;
+    flex-direction: column;
+}
+
+button, .fdb-button, .fdb-button-base {
+    box-sizing: border-box;
+    border: 1px solid var(--fdb-stroke-control);
+    border-radius: var(--fdb-border-radius);
+    background: linear-gradient(0deg, #d9d9d9, #ffffff);
+    padding: 0 .8rem;
+    font: 600 var(--fdb-button-text-size) 'Roboto Flex';
+    color: var(--fdb-text-black);
+} button:hover, .fdb-button:hover, .fdb-button-base:hover {
+    background: linear-gradient(0deg, #d0d0d0, #f0f0f0);
+} button:active, .fdb-button:active, .fdb-button-base:active {
+    background: linear-gradient(0deg, #f0f0f0, #d0d0d0);
+}
+
+button, .fdb-button {
+    height: var(--fdb-button-height);
+}
+
+button:disabled, .fdb-button:disabled, .fdb-button-base:disabled {
+    background: white;
+    color: var(--fdb-text-subtle)
+}
+
+/* Allow <a> tags to disguise as buttons */
+a.fdb-button, a.fdb-button-base {
+    padding: 0;
+    padding: 0 0.8rem;
+    display: flex;
+    align-items: center;
+
+    cursor: default;
+    text-decoration: none;
+    color: var(--fdb-text-black);
+
+    /* copied from .noselect */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/*
+Use fdb-button-green to style it green.
+Use fdb-button-green-hover to turn green only while hovered/pushed.
+*/
+.fdb-button-green, .fdb-button-green-hover:hover {
+    background: linear-gradient(0deg, #12A12A, #7DE87D);
+    border-color: #178229;
+    color: white;
+} .fdb-button-green:hover {
+    border-color: #178229;
+    background: linear-gradient(0deg, #178028, #74d674);
+} .fdb-button-green:active, .fdb-button-green-hover:active {
+    border-color: #178229;
+    background: linear-gradient(0deg, #6dc96d, #1b9630);
+}
+
+.fdb-button-red, .fdb-button-red-hover:hover {
+    background: linear-gradient(0deg, #CC3333, #E87D7D);
+    border-color: #990000;
+    color: white;
+} .fdb-button-red:hover {
+    border-color: #990000;
+    background: linear-gradient(0deg, #a82b2b, #dd7777);
+} .fdb-button-red:active, .fdb-button-red-hover:active {
+    border-color: #990000;
+    background: linear-gradient(0deg, #dd7777, #c03838);
+}
+
+.fdb-button-blue, .fdb-button-blue-hover:hover {
+    background: linear-gradient(#06A0FF, #4163EA);
+    border-color: #00f;
+    color: white;
+} .fdb-button-blue:hover {
+    background: linear-gradient(rgb(83, 200, 255), #276ff5);
+} .fdb-button-blue:active, .fdb-button-blue-hover:active {
+    background: linear-gradient(#3c79ec, #159df7);
+}
+
+.fdb-tab-row {
+    display: flex;
+    height: 2rem;
+    padding: 0 20px 0 20px;
+    border-bottom: 1px solid var(--fdb-stroke-subtle);
+    align-items: center;
+
+    .fdb-tab {
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        height: 100%;
+        padding: 0 10px 0 10px;
+        color: var(--fdb-link-blue);
+    } .fdb-tab:hover {
+        background-color: var(--fdb-indent);
+    } .fdb-tab-active {
+        cursor: default;
+        display: inline-flex;
+        align-items: center;
+        height: 100%;
+        /* Added 1px bottom padding to fix this text being slightly misaligned */
+        padding: 0 10px 1px 10px;
+        background-color: var(--fdb-fill-tab);
+        border: 1px solid var(--fdb-stroke-subtle);
+        border-bottom: 0;
+        border-radius: var(--fdb-border-radius) var(--fdb-border-radius) 0 0;
+        font-weight: 600;
+    }
+}
+
+.fdb-indent {
+    background-color: var(--fdb-indent);
+}
+
+input[type=text], input[type=password], input[type=number], textarea {
+    font-family: 'Roboto Flex';
+    font-size: 1rem;
+    border: 1px solid var(--fdb-stroke-control);
+    border-radius: var(--fdb-border-radius);
+    padding-left: 5px;
+    padding-right: 5px;
+    margin: 0;
+}
+
+textarea {
+    border: 1px solid var(--fdb-stroke-subtle);
+    padding-top: 5px;
+}
+
+.fdb-mdedit {
+    /* Use white tab to blend with white text edit */
+    --fdb-fill-tab: white;
+    /* Remove top border of text edit to blend with tab */
+    textarea {
+        border-top: none;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+
+        width: 100%;
+        max-width: 100%;
+        resize: vertical;
+    }
+
+    .fdb-mdedit-preview {
+        background: white;
+        padding: 5px;
+        border: 1px solid var(--fdb-stroke-subtle);
+        border-top: none;
+    }
+
+    /*
+    Styles the list of attached files below the markdown editor.
+    Each file is a row with 3 columns: X button, filename, and filesize.
+    */
+    .fdb-mdedit-filegrid {
+        padding: 10px;
+
+        .row {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        button {
+            width: calc(var(--fdb-button-text-size) * 1.7);
+            height: calc(var(--fdb-button-text-size) * 1.7);
+            padding: 0;
+        }
+    }
+
+    .fdb-mdedit-deleted {
+        text-decoration: line-through;
+        font-style: italic;
+        opacity: 50%;
+    }
+}
+
+.fdb-captcha {
+    display: flex;
+    flex-direction: column;
+    transition: opacity 200ms;
+    z-index: 1;
+    position: fixed;
+    left: 0; top: 0;
+
+    /* These properties are updated by scripts */
+    opacity: 0;
+    pointer-events: none;
+
+    .fdb-captcha-popup {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid black;
+        box-shadow: #00000040 0px 4px 4px;
+
+        /* Layout for the flexbox containing (the only two) buttons */
+        .fdb-captcha-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            border: 1px solid black;
+            border-radius: var(--fdb-border-radius);
+            overflow: hidden;
+        }
+    }
+
+    .fdb-captcha-head {
+        display: flex;
+        align-items: center;
+        background: linear-gradient(#77C6FF, #286BE6);
+        padding: 10px;
+        width: 302px;
+
+        span {
+            color: white;
+            font-weight: bold;
+            text-shadow: #0008 1px 1px;
+            padding: 5px;
+            font-size: 14px;
+        }
+    }
+
+    .fdb-captcha-body {
+        display: flex;
+        flex-direction: column;
+        background: white;
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .fdb-captcha-controls {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        font-size: 13px;
+
+        button {
+            background: linear-gradient(#FFF9BD, #FBC859);
+            border: solid #D56F38;
+            border-width: 1px 1px 2px 1px;
+            border-radius: 0;
+            font-weight: bold;
+            font-size: 13px;
+            height: 35px;
+            flex-grow: 1;
+            cursor: pointer;
+        }
+
+        button:active {
+            background: linear-gradient(#ffe883, #ffcd61);
+            border-width: 2px 1px 1px 1px;
+        }
+    }
+
+    img {
+        border: 1px solid black;
+    }
+}
+
+.fdb-flex { display: flex }
+
+.fdb-000-to-bbb {
+    filter: invert(71%) sepia(65%) saturate(0%) hue-rotate(247deg) brightness(96%) contrast(83%);
+}
+
+.fdb-file-grid {
+    display: grid;
+    grid-template-columns: min-content 1fr repeat(2, min-content);
+    text-wrap: nowrap;
+        
+    .header * {
+        font-weight: bold;
+        color: white;
+        background-color: #619ffd;
+    }
+    /* This horrible jank lets us nest two divs into the grid and still treat their inner content as separate cells */
+    > div, > div > div {
+        display: contents;
+    }
+    /* Set height of all cells and set a nice border to separate rows */
+    > div > div > * {
+        height: 2.5rem;
+        border-bottom: 1px solid #0002;
+    }
+    /* Pad plaintext cells */
+    > div > div > span {
+        padding: 0 1rem;
+    }
+    button {
+        height: 100%;
+    }
+    .clickable:hover {
+        user-select: none;
+        text-decoration: none;
+        background-color: #006eff1a;
+    }
+    .clickable {
+        display: flex;
+        align-items: center;
+    }
+    .clickable > a {
+        flex-grow: 1;
+    }
+    .expander {
+        display: flex;
+        width: 2rem;
+        justify-content: center;
+    }
+    span {
+        align-content: center;
+    }
+    a {
+        color: black;
+    }
+}
+
+.fdb-ftree-upload-dialog {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    padding: 1rem;
+    color: white;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid white;
+    box-shadow: 0 0 10px 0 black;
+}
+
+.fdb-dropzone {
+    border: 2px dashed #fff4;
+    padding: 1rem;
+    text-align: center;
+}
+
+.fdb-dropzone.dropping {
+    background-color: #fff4;
+    border-color: rgb(196, 220, 255);
+}
+
+.fdb-jobpanel {
+    position: fixed;
+    top: calc(100% - 2rem);
+    left: 2rem;
+    transform: translate(0,-100%);
+    z-index: 1;
+
+    display: flex;
+    gap: 10px;
+    max-height: calc(100% - 6rem);
+    max-width: calc(100% - 6rem);
+    overflow: hidden;
+
+    background: white;
+    border: 1px solid var(--fdb-stroke-control);
+    border-radius: 4px;
+    box-shadow: 0 2px 4px #0004;
+    padding: 10px;
+}
+
+.fdb-joblist {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.fdb-job {
+    display: flex;
+    padding: 1px;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    
+    > div {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        flex-grow: 1;
+        overflow-x: hidden;
+
+        > div {
+            display: flex;
+            > span:nth-child(1) {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                text-wrap: nowrap;
+            }
+        }
+    }
+}
+
+.fdb-progress-bar {
+    background: linear-gradient(white, #63FE91 46%, #008D15 50%, #63FE91 100%);
+    border: 1px solid #067900;
+    border-radius: 4px;
+
+    transition-property: width;
+    transition-duration: 0.2s;
+    transition-timing-function: cubic-bezier(.25,.1,.25,1);
+}
+
+.fdb-microblog-preview {
+    cursor: pointer;
+    &:hover {
+        background: #00000008;
+    }
+    border-bottom: solid 1px var(--fdb-stroke-subtle);
+    padding: 1rem 0 0 0;
+}
+
+.fdb-blog-header {
+    overflow-wrap: anywhere;
+    margin: 0;
+}
+
+.fdb-blog-date {
+    color: var(--fdb-text-subtle);
+    font-style: italic;
+}
+
+.noselect, label {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.wg-cap-wrap__body {
+    position: relative;
+    overflow: hidden;
+    display: flex; /* Fit the image snuggly inside */
+}
+
+.wg-cap-wrap__body .wg-cap-wrap__dot {
+	position: absolute;
+	width: 22px;
+	height: 22px;
+	color: #cedffe;
+	background: #3e7cff;
+	border: 2px solid #f7f9fb;
+	line-height: 20px;
+	text-align: center;
+	border-radius: 22px;
+	cursor: default;
+}
+
+.pjs-item-container {
+    position: fixed;
+    top: 2rem;
+    left: 50%;
+    transform: translate(-50%, 0);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.pjs-item {
+    font-weight: bold;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px #0004;
+    overflow: hidden;
+}
+
+.pjs-item > div {
+    height: 4px;
+    background-color: #0004;
+    animation-name: pjs-item-slide;
+    animation-timing-function: linear;
+}
+
+.pjs-item > p {
+    margin: 1rem;
+}
+
+@keyframes pjs-item-slide {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+[x-cloak] { display: none !important; }
+
+.fdb-base-user-tag {
+    border-radius: 4px;
+    background: linear-gradient(0deg, #911616, #ff2f2fd9);
+    padding: 4px;
+    color: white;
+    font-family: monospace;
+    margin: 4px;
+}
+
+.fdb-tag-search {
+    #fdb-tag-search-results {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        flex-direction: column;
+        border: 1px solid black;
+        background: white;
+
+        button {
+            text-align: left;
+            border: none;
+            border-radius: 0;
+            background: none;
+        }
+        button:hover, button:focus {
+            background: #0002
+        }
+    }
+}
+
+.fdb-thread-media {
+    float: left;
+    width: 200px;
+    height: 200px;
+    object-fit: scale-down;
+}
+
+.fdb-microblog-media {
+    width: 100%;
+    object-fit: contain;
+    border: 1px solid var(--fdb-stroke-control)
+}
+
+.fdb-blog-media {
+    max-width: 100%;
+    max-height: 50vh;
+}
