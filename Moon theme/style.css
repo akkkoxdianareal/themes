@@ -5,6 +5,7 @@
   --border-light: #2b2d40;
   --bg-black: #070a12;
   --text: #ffff;
+  --accent: #24af88;
   --primary: #146ac4;
   --fdb-indent: var(--bg-light);
 }
@@ -28,32 +29,31 @@
   border-radius: 100px;
 }
 .fdb-microblog-preview {
-  background-color: var(--bg-extra-light)!important;
+  background-color: var(--bg-extra-light) !important;
   border: 1px solid var(--border-light);
   padding: 10px;
   margin-bottom: 5px;
 }
 
-.fdb-microblog{
+.fdb-microblog {
   padding: 20px;
   background-color: var(--bg-extra-light);
   border: 1px solid var(--border-light);
 }
 div:nth-child(2) > div:nth-child(5) > div {
-	 border-bottom-color: var(--border-light);
+  border-bottom-color: var(--border-light);
 }
-.fdb-microblog-preview .fdb-microblog{
-  background-color: transparent!important;
-  padding: 0!important;
+.fdb-microblog-preview .fdb-microblog {
+  background-color: transparent !important;
+  padding: 0 !important;
   border: none;
 }
 .fdb-main-container > div > div:nth-child(2) {
   padding: 20px;
   background-color: var(--bg-extra-light);
-
 }
 .fdb-main-container > div > .fdb-microblog-preview {
-  background-color: var(--bg-extra-light)!important;
+  background-color: var(--bg-extra-light) !important;
 }
 
 .fdb-main-container > div > div:nth-child(2) span {
@@ -80,7 +80,7 @@ div.pb-play-btns {
 }
 
 div.fdb-threads-pad {
-  background: var(--bg-light)!important;
+  background: var(--bg-light) !important;
   padding: 10px;
   color: var(--text) !important;
 }
@@ -255,9 +255,8 @@ hr {
   transition: all 0.2s ease-in-out;
 }
 
-.fdb-thread-preview  .pb-player:active,
-.fdb-microblog-preview  .pb-player:active
- {
+.fdb-thread-preview .pb-player:active,
+.fdb-microblog-preview .pb-player:active {
   width: 500px !important;
   transition: all 0.2s ease-in-out;
 }
@@ -295,15 +294,13 @@ span {
   color: #c2c9ed;
   border-bottom-color: var(--border-light) !important;
 }
-
+/* Follows you green color */
 .fdb-main-container
   > div:nth-child(1)
   > div:nth-child(1)
   > div:nth-child(2)
-  > div:nth-last-child()
-  span {
-  font-weight: 800;
-  color: green !important;
+  > span:nth-child(6) {
+  color: var(--accent) !important;
 }
 
 .fdb-main-container > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) a {
@@ -350,7 +347,6 @@ div.noselect.fdb-tab-active {
   border: none;
 }
 
-.fdb-indent > div > div  {
+.fdb-indent > div > div {
   border-bottom-color: var(--border-light);
 }
-
