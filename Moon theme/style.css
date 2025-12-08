@@ -154,31 +154,30 @@ a:nth-child(12) {
   display: flex;
   margin-left: 10px;
   justify-content: center !important;
-  text-align: start;
+  text-align: center;
   align-items: center;
   color: #ffff;
   text-shadow: none;
 }
+/* DISCOVER ACCOUNTS NEW USERS CONTAINER */
 .fdb-discover:nth-child(1) {
   /* border: 1px solid #2c5272 ;*/
   border: none;
-  display: flex;
   width: 10;
-  flex-direction: column;
   padding-right: 0;
+  margin-top: 20px;
   background-color: var(--bg-extra-light);
-  justify-content: start;
-  align-items: start;
 }
+/* New users */
 .fdb-discover:nth-child(1) h1 {
   border: 1px solid #2c5272;
   color: #ffff;
+  display: flex;
   height: 60px;
   width: 100%;
   background: var(--m-gradient);
   text-shadow: none;
   border-radius: 5px;
-  display: flex;
   padding-left: 10px;
   justify-content: start;
   align-items: center;
