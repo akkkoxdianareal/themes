@@ -13,7 +13,7 @@
   --m-gradient: linear-gradient(
     180deg,
     var(--primary) 0%,
-    rgb(62, 78, 222) 100%
+    rgb(17, 74, 197) 100%
   );
   --m-gradient-active: linear-gradient(
     180deg,
@@ -45,6 +45,11 @@
     rgb(58, 240, 170) 17%,
     rgb(28, 121, 128) 100%
   );
+  --g-gradient-active: linear-gradient(
+    0deg,
+    rgb(58, 240, 170) 17%,
+    rgb(28, 121, 128) 100%
+  );
 }
 body{
   color: var(--text);
@@ -53,16 +58,15 @@ body{
   background: var(--bg-black) !important;
   height: 2px;
   padding: 10px !important;
-  border-radius: 100px;
 }
 ::-webkit-scrollbar-thumb {
   padding: 10px !important;
   background: var(--primary) !important;
   height: 5px !important;
   border-radius: 100px;
+  border: 2px solid var(--bg-black);
 }
 ::-webkit-scrollbar {
-  width: 10px;
   height: 10px;
   padding: 5px !important;
   border-radius: 100px;
@@ -77,15 +81,25 @@ body{
 }
 .fdb-button:hover,
 .fdb-button-base:hover, div.div.button:hover {
-  background: var(--b-gradient-active);
+  background: var(--m-gradient);
+  border-color: var(--primary);
 }
 
 .fdb-button-red-hover {
-  background: var(--c-gradient);
-  border-color: #d24461;
+  background: var(--b-gradient);
+  border-color: var(--border-light);
   color: var(--text);
   cursor: pointer;
 
+}
+.fdb-button-green-hover{
+  background: var(--b-gradient);
+  color: var(--text);
+  border-color: var(--border-light);
+}
+.fdb-button-green-hover:hover{
+  background: var(--g-gradient);
+  border-color: #24af88;
 }
 .fdb-button-red-hover:hover {
   background: var(--c-gradient-active);
