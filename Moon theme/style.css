@@ -7,16 +7,48 @@
   --text: #ffff;
   --accent: #24af88;
   --primary: #2888ee;
-  --primary-accent: #19253e;
+  --primary-accent: #303b54ce;
   --fdb-indent: var(--bg-extra-light);
   --light-light: #222b47;
   --m-gradient: linear-gradient(
-    174deg,
-    rgba(53, 154, 232, 1) 0%,
-    rgba(32, 95, 212, 1) 100%
+    180deg,
+    var(--primary) 0%,
+    rgb(62, 78, 222) 100%
+  );
+  --m-gradient-active: linear-gradient(
+    180deg,
+    rgb(53, 170, 254) 0%,
+    rgb(48, 76, 215) 100%
+  );
+  --b-gradient: linear-gradient(
+    180deg,
+    var(--primary-accent) 0%,
+    rgb(75, 82, 109) 100%
+  );
+  --b-gradient-active: linear-gradient(
+    0deg,
+    var(--primary-accent) 0%,
+    rgba(148, 142, 198, 0.526) 100%
+  );
+  --c-gradient: linear-gradient(
+    0deg,
+    rgba(253, 29, 51, 1) 17%,
+    rgba(252, 69, 148, 1) 100%
+  );
+  --c-gradient-active: linear-gradient(
+    0deg,
+    rgb(253, 29, 74) 17%,
+    rgba(255, 122, 166) 100%
+  );
+  --g-gradient: linear-gradient(
+    180deg,
+    rgb(58, 240, 170) 17%,
+    rgb(28, 121, 128) 100%
   );
 }
-
+body{
+  color: var(--text);
+}
 ::-webkit-scrollbar-track {
   background: var(--bg-black) !important;
   height: 2px;
@@ -35,28 +67,78 @@
   padding: 5px !important;
   border-radius: 100px;
 }
-.fdb-microblog-preview {
-  background-color: var(--bg-extra-light) !important;
-  border: 1px solid var(--border-light);
-  padding: 10px;
-  margin-bottom: 5px;
+/* buttons */
+.fdb-button-base,
+.fdb-button, div.button, div.div.button {
+  background: var(--b-gradient);
+  color: var(--text);
+  cursor: pointer;
+  border-color: var(--border-light);
 }
-.fdb-flex{
+.fdb-button:hover,
+.fdb-button-base:hover, div.div.button:hover {
+  background: var(--b-gradient-active);
+}
+
+.fdb-button-red-hover {
+  background: var(--c-gradient);
+  border-color: #d24461;
+  color: var(--text);
+  cursor: pointer;
+
+}
+.fdb-button-red-hover:hover {
+  background: var(--c-gradient-active);
+  border-color: #f36d87;
+  color: var(--text);
+  cursor: pointer;
+
+}
+button.fdb-button-green.fdb-button-red-hover {
+  background: var(--g-gradient);
+  border-color: #24af88;
+  cursor: pointer;
+}
+button.fdb-button-green.fdb-button-red-hover:hover {
+  background: var(--c-gradient-active);
+  border-color: #f36d87;
+  color: var(--text);
+}
+button:disabled{
+  background-color: #4d5262;
+  color: #aaaaaa;
+  border-color: #6c6f7c;
+}
+.fdb-button-blue {
+  background: var(--m-gradient) !important;
+  border-color: #1226c0;
+}
+.fdb-button-blue:hover {
+  background: var(--m-gradient-active) !important;
+}
+
+.fdb-flex {
   margin-top: 10px;
 }
-.fdb-thread-preview > a:last-of-type{
+.fdb-thread-preview > a:last-of-type {
   background-color: var(--primary-accent);
   color: var(--text);
+}
+/* Microblog */
+.fdb-microblog-preview {
+  background-color: transparent;
+  padding: 10px;
 }
 
 .fdb-microblog {
   padding: 20px;
-  background-color: var(--bg-extra-light);
-  border: 1px solid var(--border-light);
+  background-color: transparent;
 }
+
 div:nth-child(2) > div:nth-child(5) > div {
   border-bottom-color: var(--border-light);
 }
+
 .fdb-microblog-preview .fdb-microblog {
   background-color: transparent !important;
   padding: 0 !important;
@@ -64,31 +146,23 @@ div:nth-child(2) > div:nth-child(5) > div {
 }
 
 .fdb-main-container > div > .fdb-microblog-preview {
-  background-color: var(--bg-extra-light) !important;
+  background-color: transparent;
 }
 
 .fdb-main-container > div > div:nth-child(2) span {
   margin-right: 2px;
 }
 
-.fdb-main-container > div > div:nth-child(2) .fdb-button,
-button {
-  margin-top: 5px;
-  margin-bottom: 0px;
-  margin-right: 2px;
-}
-
 button.pb-tool-btn {
   margin: 0;
+
 }
+
 /*this fix the problem with the miniplayer xp*/
-div div div {
+.fdb-thread-preview div div div {
   height: auto;
 }
 
-div.pb-play-btns {
-  margin-bottom: 0;
-}
 
 div.fdb-threads-pad {
   background: var(--bg-light) !important;
@@ -98,11 +172,14 @@ div.fdb-threads-pad {
 div.fdb-threads-pad .fdb-microblog-preview {
   color: var(--text) !important;
   background-color: transparent;
-  border: 1px solid var(--border-light);
-  margin-bottom: 20px;
+  border-bottom-color: var(--border-light);
 }
 
-.fdb-tab-row {
+div.fdb-microblog-preview:hover {
+  background-color: var(--bg-extra-light);
+}
+
+div.fdb-tab-row {
   border-bottom: 1px solid var(--border-light) !important;
 }
 
@@ -131,7 +208,7 @@ div.fdb-threads-pad .fdb-microblog-preview {
 }
 body > div:nth-child(4) {
   background-color: var(--bg-black);
- /* background-image: url('https://i.imgur.com/g1rdba2.png');*/
+  /* background-image: url('https://i.imgur.com/g1rdba2.png');*/
   background-size: fit;
   background-position: center;
 }
@@ -211,17 +288,17 @@ a:nth-child(12) {
 .fdb-index-box {
   background-color: var(--bg-extra-light);
   color: #c2c9ed !important;
-  border: 2px solid var(--border-light) !important;
+  border: 1px solid var(--border-light) !important;
 }
 .fdb-index-box a {
   color: var(--primary) !important;
 }
 /* EPIC HEADER */
-.fdb-hamburger > div{
+.fdb-hamburger > div {
   height: 3px;
 }
-.fdb-hamburger{
-  margin-top:10px;
+.fdb-hamburger {
+  margin-top: 10px;
 }
 .fdb-header {
   justify-content: center;
@@ -231,7 +308,7 @@ a:nth-child(12) {
   /*background: linear-gradient(174deg,rgba(199, 80, 147, 1) 0%, rgba(154, 28, 166, 1) 100%);
   */
 }
-.fdb-mobile{
+.fdb-mobile {
   z-index: 20;
 }
 .fdb-header > div:nth-child(2) {
@@ -286,24 +363,27 @@ hr {
 .fdb-main-container > div:nth-child(3) {
   background-color: var(--bg-light);
 }
-
+.fdb-main-container > div:nth-child(1) > span:last-of-type {
+  color: var(--text);
+}
 
 h1 {
   color: var(--text);
 }
 
-.fdb-main-container > div:nth-child(1)>
-span:last-of-type {
-  color: var(--text);
-}
-
+/* Divs of profiles */
 .fdb-indent {
+  color: var(--text);
   background-color: var(--bg-extra-light);
 }
 .fdb-indent > div > div {
   color: #c2c9ed;
   border-bottom-color: var(--border-light) !important;
 }
+.fdb-indent > div > div {
+  border-bottom-color: var(--border-light);
+}
+
 /* Follows you green color */
 .fdb-main-container
   > div:nth-child(1)
@@ -313,42 +393,58 @@ span:last-of-type {
   color: var(--accent) !important;
 }
 
+/* Profile followers / following numbers */
 .fdb-main-container > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) a {
   color: var(--primary);
 }
+/* Profile flex grow, transparent background */
 .fdb-main-container > div:nth-child(1) > div:nth-child(2) {
   background-color: transparent;
 }
+/* Profile banner padding bottom */
 .fdb-main-container > div:nth-child(1) {
   background-color: transparent;
   padding-bottom: 10px;
 }
-.fdb-main-container > div:nth-child(3) >  h2, p{
+/* tab row reply */
+#reply .fdb-tab-row {
+  border-radius: 5px;
+  background-color: var(--bg-light);
+}
+/*Profile text*/
+.fdb-main-container > div:nth-child(3) > h2,
+p {
   color: var(--text);
 }
-.fdb-main-container > div:nth-child(2){
+.fdb-main-container > div:nth-child(2) {
   color: var(--text);
 }
-.fdb-main-container > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > span:first-of-type{
+.fdb-main-container
+  > div:nth-child(1)
+  > div:nth-child(1)
+  > div:nth-child(2)
+  > span:first-of-type {
   color: var(--text);
-}
-a.noselect.fdb-tab {
-  background-color: transparent;
-  margin-bottom: 5px;
 }
 
-span.noselect.fdb-tab-active {
+a.noselect.fdb-tab {
+  background-color: transparent;
+  margin-bottom: 10px;
+}
+
+.fdb-tab-active {
   background-color: var(--bg-extra-light);
-  border: 1px solid var(--border-light);
+  border: 1px solid var(--border-light) !important;
   border-bottom: none;
-  margin-bottom: 5px;
   padding-top: 5px;
+  margin-bottom: 5px;
   color: var(--text);
 }
 
 div.fdb-tab-row {
   background-color: transparent;
   padding-top: 10px;
+  height: 30px;
 }
 
 div.noselect.fdb-tab,
@@ -377,24 +473,22 @@ div.noselect.fdb-tab-active {
   border: none;
 }
 
-.fdb-indent > div > div {
-  border-bottom-color: var(--border-light);
-}
 /*nav*/
 @media screen and (max-width: 1000px) {
   .fdb-header .fdb-header-links {
-      box-sizing: border-box;
-      position: absolute;
-      top: 4rem;
-      left: 0;
-      z-index: 1100;
-      width: 100%;
-      background-color: #101010;
-      display: none;
-      flex-direction: column;
-      padding: 10px 20px 20px 20px;
+    box-sizing: border-box;
+    position: absolute;
+    top: 4rem;
+    left: 0;
+    z-index: 1100;
+    width: 100%;
+    background-color: #101010;
+    display: none;
+    flex-direction: column;
+    padding: 10px 20px 20px 20px;
   }
 }
-.fdb-avatar-frame > img:last-of-type{
+.fdb-avatar-frame > img:last-of-type {
   z-index: 200;
+  border: none;
 }
