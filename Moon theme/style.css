@@ -138,6 +138,7 @@ button:disabled{
   background-color: var(--primary-accent);
   color: var(--text);
 }
+
 /* Microblog */
 .fdb-microblog-preview {
   background-color: transparent;
@@ -346,6 +347,9 @@ hr {
 .fdb-thread-preview > div > div {
   color: var(--text) !important;
   border-bottom: 1px solid var(--border-light) !important;
+}
+.fdb-thread-preview > div > div:last-of-type{
+  border-bottom: none;
 }
 
 /* PLAYER */
